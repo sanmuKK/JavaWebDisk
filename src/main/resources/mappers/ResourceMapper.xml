@@ -39,6 +39,19 @@
         where id = #{arg0}
     </select>
 
+    <select id="getResourceAddressById" parameterType="_integer" resultType="String">
+        select address
+        from resource
+        where id = #{arg0}
+          and ownerUserId = #{arg1}
+    </select>
+
+    <select id="getAuditResourceAddressById" parameterType="_integer" resultType="String">
+        select address
+        from auditresource
+        where id = #{arg0}
+    </select>
+
     <delete id="delResourceById" parameterType="_integer">
         delete
         from resource

@@ -22,6 +22,10 @@ public interface ResourceMapper {
 
     void delAuditResourceById(int id);
 
+    String getResourceAddressById(int id, int ownerUserId);
+
+    String getAuditResourceAddressById(int id);
+
     @Select("select count(*) from resource where ownerCatalogId = #{arg0}")
     int count(int id);
 

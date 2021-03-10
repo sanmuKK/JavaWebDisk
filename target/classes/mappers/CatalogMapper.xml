@@ -15,7 +15,7 @@
         Limit 8 OFFSET #{arg1}
     </select>
 
-    <delete id="delCatalogById" parameterType="_integer">
+    <delete id="delCatalog" parameterType="_integer">
         delete
         from catalog
         where id = #{arg0}

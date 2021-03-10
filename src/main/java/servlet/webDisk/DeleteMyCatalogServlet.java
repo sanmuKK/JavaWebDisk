@@ -15,13 +15,13 @@ import java.io.PrintWriter;
 public class DeleteMyCatalogServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int resourceId = Integer.parseInt(req.getParameter("id"));
+        int catalogId = Integer.parseInt(req.getParameter("id"));
         String token = req.getHeader("token");
         JSONObject info = TokenUtil.getTokenContext(token, 1);
         int ownerUserId = info.getIntValue("id");
         JSONObject ret = new JSONObject();
         try {
-            CatalogModel.delCatalogById(resourceId, ownerUserId);
+            CatalogModel.delCatalogById(catalogId, ownerUserId);
             ret.put("message", "success");
             ret.put("code", 0);
         } catch (Exception e) {

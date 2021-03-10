@@ -61,6 +61,20 @@ public class ResourceModel {
         }
     }
 
+    public static String getResourceAddress(int id, int ownerUserId) {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            ResourceMapper resourceMapper = sqlSession.getMapper(ResourceMapper.class);
+            return resourceMapper.getResourceAddressById(id, ownerUserId);
+        }
+    }
+
+    public static String getAuditResourceAddress(int id) {
+        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            ResourceMapper resourceMapper = sqlSession.getMapper(ResourceMapper.class);
+            return resourceMapper.getAuditResourceAddressById(id);
+        }
+    }
+
     public static void delResourceById(int id, int ownerUserId) {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             ResourceMapper resourceMapper = sqlSession.getMapper(ResourceMapper.class);

@@ -23,10 +23,12 @@ public class ViewFileServlet extends HttpServlet {
         JSONObject info = TokenUtil.getTokenContext(token, 1);
         int ownerUserId = info.getIntValue("id");
         ArrayList<JSONObject> resourcesList = ResourceModel.getResource(ownerUserId, catalogId, page);
+        int total = ResourceModel.getCount(catalogId);
         JSONObject ret = new JSONObject();
         ret.put("code", 0);
         ret.put("message", "success");
         ret.put("resourcesList", resourcesList);
+        ret.put("total", total);
         PrintWriter pw = resp.getWriter();
         pw.write(ret.toJSONString());
         pw.flush();

@@ -33,6 +33,7 @@ public class CatalogModel {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             CatalogMapper CatalogMapper = sqlSession.getMapper(CatalogMapper.class);
             CatalogMapper.delCatalog(catalogId,ownerUserID);
+            sqlSession.commit();
         }
     }
 
