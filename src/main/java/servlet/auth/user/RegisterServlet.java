@@ -36,15 +36,12 @@ public class RegisterServlet extends HttpServlet {
             if (code.equals(checkCode) || code.equals("1234")) {//后删
                 account = SHA256Util.getSHA256(account);
                 pass = SHA256Util.getSHA256(pass);
-                System.out.println(account);
-                System.out.println(name);
-                System.out.println(avatar);
                 try {
                     UserModel.addUser(account, pass, name, avatar);
                     ret.put("code", 0);
                     ret.put("message", "success");
                 } catch (Exception e) {
-                    ret.put("code", 10);
+                    ret.put("code", 1);
                     ret.put("message", "registerError");
                 }
             } else {
@@ -65,7 +62,7 @@ public class RegisterServlet extends HttpServlet {
             ret.put("code", 0);
             ret.put("message", "success");
         } catch (Exception e) {
-            ret.put("code", 11);
+            ret.put("code", 9);
             ret.put("message", "sendMessageError");
         }
         response.getWriter().write(ret.toJSONString());
