@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ResourceMapper">
+    <insert id="insertResource" parameterType="Resource">
+        insert into resource(name, address, uploadUserName, uploadUserId, ownerUserId, ownerCatalogId)
+        values (#{name}, #{address}, #{uploadUserName}, #{uploadUserId}, #{ownerUserId}, #{ownerCatalogId})
+    </insert>
+
+    <insert id="insertAuditResource" parameterType="Resource">
+        insert into auditresource(name, address, uploadUserName, uploadUserId, ownerUserId, ownerCatalogId)
+        values (#{name}, #{address}, #{uploadUserName}, #{uploadUserId}, #{ownerUserId}, #{ownerCatalogId})
+    </insert>
+
+    <select id="getResource" resultType="Resource" parameterType="_integer">
+        select *
+        from resource
+        where ownerUserId = #{arg0}
+          AND ownerCatalogId = #{arg1}
+        Limit 8 OFFSET #{arg2}
+    </select>
+
+    <select id="getAuditResource" resultType="Resource" parameterType="_integer">
+        select *
+        from auditresource
+        Limit 8 OFFSET #{arg0}
+    </select>
+
+    <select id="getResourceById" resultType="Resource" parameterType="_integer">
+        select *
+        from resource
+        where id = #{arg0}
+    </select>
+
+    <select id="getAuditResourceById" resultType="Resource" parameterType="_integer">
+        select *
+        from auditresource
+        where id = #{arg0}
+    </select>
+
+    <delete id="delResourceById" parameterType="_integer">
+        delete
+        from resource
+        where id = #{arg0}
+          and ownerUserId = #{arg1}
+    </delete>
+
+    <delete id="delAuditResourceById" parameterType="_integer">
+        delete
+        from auditresource
+        where id = #{arg0}
+    </delete>
+</mapper>

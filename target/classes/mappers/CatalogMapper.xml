@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.CatalogMapper">
+    <insert id="insertCatalog" parameterType="Catalog">
+        insert into catalog(name, ownerUserId, ownerUserName)
+        values (#{name}, #{ownerUserId}, #{ownerUserName})
+    </insert>
+
+    <select id="getCatalog" resultType="Catalog" parameterType="_integer">
+        select *
+        from catalog
+        where ownerUserId = #{arg0}
+        Limit 8 OFFSET #{arg1}
+    </select>
+
+    <delete id="delCatalogById" parameterType="_integer">
+        delete
+        from catalog
+        where id = #{arg0}
+          and ownerUserId = #{arg1}
+    </delete>
+</mapper>

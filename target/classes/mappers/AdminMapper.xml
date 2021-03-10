@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AdminMapper">
+    <insert id="insertAdmin" parameterType="Admin">
+        insert into admin(account,password,name,avatar) values(#{account},#{password},#{name},#{avatar})
+    </insert>
+
+    <select id="getAdmin" resultType="Admin" parameterType="String">
+        select * from admin where account=#{arg0} and password=#{arg1}
+    </select>
+</mapper>

@@ -1,0 +1,66 @@
+drop table resource;
+drop table auditResource;
+drop table catalog;
+drop table user;
+drop table admin;
+CREATE TABLE user
+(
+    id       int AUTO_INCREMENT,
+    account  VARCHAR(64) NOT NULL DEFAULT '' UNIQUE,
+    password VARCHAR(64) NOT NULL default '',
+    name     VARCHAR(16) NOT NULL DEFAULT '',
+    avatar   VARCHAR(64) NOT NULL DEFAULT '',
+    PRIMARY KEY (id)
+);
+CREATE TABLE admin
+(
+    id       int AUTO_INCREMENT,
+    account  VARCHAR(64) NOT NULL DEFAULT '' UNIQUE,
+    password VARCHAR(64) NOT NULL default '',
+    name     VARCHAR(16) NOT NULL DEFAULT '',
+    avatar   VARCHAR(64) NOT NULL DEFAULT '',
+    PRIMARY KEY (id)
+);
+CREATE TABLE catalog
+(
+    id            int AUTO_INCREMENT,
+    name          VARCHAR(128) NOT NULL DEFAULT '',
+    uploadTime    DATETIME     NOT NULL DEFAULT NOW(),
+    ownerUserName VARCHAR(16)  NOT NULL DEFAULT '',
+    ownerUserId   int,
+    PRIMARY KEY (id),
+    CONSTRAINT userCatalog FOREIGN KEY (ownerUserId) REFERENCES user (id)
+);
+CREATE TABLE resource
+(
+    id             int AUTO_INCREMENT,
+    name           VARCHAR(128) NOT NULL DEFAULT '',
+    address        VARCHAR(128) NOT NULL DEFAULT '',
+    uploadTime     DATETIME     NOT NULL DEFAULT NOW(),
+    uploadUserName VARCHAR(16)  NOT NULL DEFAULT '',
+    uploadUserId   int,
+    ownerUserId    int,
+    ownerCatalogId int,
+    PRIMARY KEY (id),
+    CONSTRAINT userResources FOREIGN KEY (ownerUserId) REFERENCES user (id),
+    CONSTRAINT uploadUserResources FOREIGN KEY (uploadUserId) REFERENCES user (id),
+    CONSTRAINT catalogResources FOREIGN KEY (ownerCatalogId) REFERENCES catalog (id)
+);
+
+CREATE TABLE auditResource
+(
+    id             int AUTO_INCREMENT,
+    name           VARCHAR(128) NOT NULL DEFAULT '',
+    address        VARCHAR(128) NOT NULL DEFAULT '',
+    uploadTime     DATETIME     NOT NULL DEFAULT NOW(),
+    uploadUserName VARCHAR(16)  NOT NULL DEFAULT '',
+    uploadUserId   int,
+    ownerUserId    int,
+    ownerCatalogId int,
+    PRIMARY KEY (id),
+    CONSTRAINT userAuditResources FOREIGN KEY (ownerUserId) REFERENCES user (id),
+    CONSTRAINT uploadUserAuditResources FOREIGN KEY (uploadUserId) REFERENCES user (id),
+    CONSTRAINT catalogAuditResources FOREIGN KEY (ownerCatalogId) REFERENCES catalog (id)
+);
+insert admin(account, password, name, avatar)
+VALUES ('admin', 'admin', 'BOSS', 'a.jpg')
